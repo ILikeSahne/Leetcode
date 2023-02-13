@@ -1,3 +1,3 @@
 ﻿using Leetcode.Exercises;
 
-new TwoSumTests().TwoSumShouldReturn0And1();
+new AddTwoNumbersTests().AddTwoNumbersShouldReturn807();
