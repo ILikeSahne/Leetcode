@@ -2,71 +2,119 @@
 
 namespace Leetcode.Exercises
 {
-    public class LengthOfLongestSubstringSolution
+    public class AddTwoNumbersSolution
     {
-        public int LengthOfLongestSubstring(string s)
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
-            var maxLength = 0;
+            var cur1 = l1;
+            var cur2 = l2;
             
-            var characters = new HashSet<char>();
-            var length = 0;
+            var resultStart = new ListNode();
+            var result = resultStart;
 
-            for (var i = 0; i < s.Length; i++)
+            var carry = 0;
+            
+            while (cur1 != null || cur2 != null)
             {
-                var j = i;
-                for (; j < s.Length; j++)
+                var num = carry;
+
+                if (cur1 != null)
                 {
-                    var c = s[j];
-
-                    if (characters.Contains(c))
-                    {
-                        if (length > maxLength)
-                        {
-                            maxLength = length;
-                        }
-
-                        break;
-                    }
-
-                    length++;
-                    characters.Add(c);
+                    num += cur1.val;
+                    cur1 = cur1.next;
                 }
 
-                if (j == s.Length)
+                if (cur2 != null)
                 {
-                    if (length > maxLength)
-                    {
-                        maxLength = length;
-                    }
-
-                    break;
+                    num += cur2.val;
+                    cur2 = cur2.next;
                 }
 
-                characters.Clear();
-                length = 0;
+                result.next = new ListNode(num % 10);
+                result = result.next;
+
+                carry = num / 10;
             }
-            return maxLength;
+
+            if (carry > 0)
+            {
+                result.next = new ListNode(carry);
+            }
+
+            return resultStart.next;
         }
     }
 
-    public class LengthOfLongestSubstringTests
+    public class AddTwoNumbersTests
     {
-        private readonly LengthOfLongestSubstringSolution _lengthOfLongestSubstring;
+        private readonly AddTwoNumbersSolution _twoSum;
 
-        public LengthOfLongestSubstringTests()
+        public AddTwoNumbersTests()
         {
-            _lengthOfLongestSubstring = new LengthOfLongestSubstringSolution();
+            _twoSum = new AddTwoNumbersSolution();
         }
 
-        [Theory]
-        [InlineData("abcabcbb", 3)]
-        [InlineData("bbbbb", 1)]
-        [InlineData("pwwkew", 3)]
-        public void LengthOfLongestSubstringTheory(string input, int expected)
+        [Fact]
+        public void AddTwoNumbersShouldReturn807()
         {
-            var result = _lengthOfLongestSubstring.LengthOfLongestSubstring(input);
+            var first = CreateListNodeNumber(2, 4, 3);
+            var second = CreateListNodeNumber(5, 6, 4);
 
-            result.Should().Be(expected);
+            var result = _twoSum.AddTwoNumbers(first, second);
+
+            ListNodeShouldBe(result, 7, 0, 8);
+        }
+
+        [Fact]
+        public void AddTwoNumbersShouldReturn89990001()
+        {
+            var first = CreateListNodeNumber(9, 9, 9, 9, 9, 9, 9);
+            var second = CreateListNodeNumber(9, 9, 9, 9);
+
+            var result = _twoSum.AddTwoNumbers(first, second);
+
+            ListNodeShouldBe(result, 8, 9, 9, 9, 0, 0, 0, 1);
+        }
+
+        private ListNode CreateListNodeNumber(params int[] numbers)
+        {
+            if(numbers.Length == 0)
+                return new ListNode();
+
+            var start = new ListNode(numbers[0]);
+            var current = start;
+
+            for(var i = 1; i < numbers.Length; i++)
+            {
+                current.next = new ListNode(numbers[i]);
+                current = current.next;
+            }
+
+            return start;
+        }
+
+        private void ListNodeShouldBe(ListNode node, params int[] numbers)
+        {
+            var current = node;
+            foreach (var num in numbers)
+            {
+                current.Should().NotBeNull();
+
+                current.val.Should().Be(num);
+
+                current = current.next;
+            }
+        }
+    }
+
+    public class ListNode
+    {
+        public int val;
+        public ListNode next;
+        public ListNode(int val = 0, ListNode next = null)
+        {
+            this.val = val;
+            this.next = next;
         }
     }
 }

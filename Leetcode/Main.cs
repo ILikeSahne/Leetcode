@@ -1,3 +1,3 @@
 ﻿using Leetcode.Exercises;
 
-new AddTwoNumbersTests().AddTwoNumbersShouldReturn807();
+new LengthOfLongestSubstringTests().LengthOfLongestSubstringTheory("pwwkew", 3);
