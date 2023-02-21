@@ -11,58 +11,25 @@ namespace Leetcode.Exercises
     {
         public string LongestPalindrome(string s)
         {
-            var longest = "";
-
+            int maxLength = 0, startIndex = 0;
             for (var i = 0; i < s.Length; i++)
             {
-                for (var j = i; j < s.Length; j++)
+                int start = i, end = i;
+                while (end < s.Length - 1 && s[start] == s[end + 1])
+                    end++;
+
+                while (end < s.Length - 1 && start > 0 && s[start - 1] == s[end + 1])
                 {
-                    var sub = s.Substring(i, j - i + 1);
-                    if (IsPalindrome(sub))
-                    {
-                        if(sub.Length > longest.Length)
-                            longest = sub;
-                    }
+                    start--;
+                    end++;
+                }
+                if (maxLength < end - start + 1)
+                {
+                    maxLength = end - start + 1;
+                    startIndex = start;
                 }
             }
-
-            return longest;
-        }
-
-        // IsPalindrome approach that takes a runtime of O(N)
-        //private bool IsPalindrome(string s)
-        //{
-        //    for (var i = 0; i < s.Length / 2; i++)
-        //    {
-        //        if (s[i] != s[s.Length - i - 1])
-        //            return false;
-        //    }
-
-        //    return true;
-        //}
-
-        private readonly Dictionary<string, bool> _checkedSubstrings = new();
-
-        // Using recursion and a Dictionary to store previous results allows us to only test every substring once, taking its time down to O(1)
-        private bool IsPalindrome(string s)
-        {
-            if (_checkedSubstrings.ContainsKey(s))
-                return _checkedSubstrings[s];
-
-            if (s.Length <= 1)
-            {
-                _checkedSubstrings[s] = true;
-                return true;
-            }
-
-            if (s[0] == s[^1] && IsPalindrome(s.Substring(1, s.Length - 2)))
-            {
-                _checkedSubstrings[s] = true;
-                return true;
-            }
-
-            _checkedSubstrings[s] = false;
-            return false;
+            return s.Substring(startIndex, maxLength);
         }
     }
 
