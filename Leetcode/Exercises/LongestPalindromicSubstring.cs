@@ -29,15 +29,40 @@ namespace Leetcode.Exercises
             return longest;
         }
 
+        // IsPalindrom approch that takes a runtime of O(N)
+        //private bool IsPalindrome(string s)
+        //{
+        //    for (var i = 0; i < s.Length / 2; i++)
+        //    {
+        //        if (s[i] != s[s.Length - i - 1])
+        //            return false;
+        //    }
+
+        //    return true;
+        //}
+
+        private readonly Dictionary<string, bool> _checkedSubstrings = new();
+
+        // Using recursion and a Dictionary to store previous results allows us to only test every substring once, taking its time down to O(1)
         private bool IsPalindrome(string s)
         {
-            for (var i = 0; i < s.Length / 2; i++)
+            if (_checkedSubstrings.ContainsKey(s))
+                return _checkedSubstrings[s];
+
+            if (s.Length <= 1)
             {
-                if (s[i] != s[s.Length - i - 1])
-                    return false;
+                _checkedSubstrings[s] = true;
+                return true;
             }
 
-            return true;
+            if (s[0] == s[^1] && IsPalindrome(s.Substring(1, s.Length - 2)))
+            {
+                _checkedSubstrings[s] = true;
+                return true;
+            }
+
+            _checkedSubstrings[s] = false;
+            return false;
         }
     }
 
