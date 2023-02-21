@@ -29,7 +29,7 @@ namespace Leetcode.Exercises
             return longest;
         }
 
-        // IsPalindrom approch that takes a runtime of O(N)
+        // IsPalindrome approach that takes a runtime of O(N)
         //private bool IsPalindrome(string s)
         //{
         //    for (var i = 0; i < s.Length / 2; i++)
