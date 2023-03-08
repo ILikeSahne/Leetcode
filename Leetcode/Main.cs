@@ -1,3 +1,3 @@
 ﻿using Leetcode.Exercises;
 
-new FindMedianSortedArraysTests().MedianShouldBe2();
+new ReverseIntegerTests().ReverseIntegerTheory(-2147483648, 0);
