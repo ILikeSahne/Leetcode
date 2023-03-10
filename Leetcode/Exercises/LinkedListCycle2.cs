@@ -5,7 +5,41 @@ namespace Leetcode.Exercises
 {
     public class LinkedListCycle2Solution
     {
+        // Constant Memory
         public ListNode? DetectCycle(ListNode? head)
+        {
+            var nodePointerSlow = head;
+            var nodePointerFast = head;
+
+            while (true)
+            {
+                nodePointerSlow = nodePointerSlow?.next;
+                if (nodePointerSlow == null)
+                    return null;
+
+                nodePointerFast = nodePointerFast?.next?.next;
+                if (nodePointerFast == null)
+                    return null;
+
+                if (nodePointerSlow == nodePointerFast)
+                {
+                    break;
+                }
+            }
+
+            // Loop found, resetting slow pointer, moving forward at normal speed will cause the 2 pointers to meet at the start
+            nodePointerSlow = head;
+            while (true)
+            {
+                if (nodePointerSlow == nodePointerFast)
+                    return nodePointerSlow;
+
+                nodePointerSlow = nodePointerSlow?.next;
+                nodePointerFast = nodePointerFast?.next;
+            }
+        }
+
+        public ListNode? DetectCycle_HashSetApproach(ListNode? head)
         {
             var node = head;
 
@@ -49,7 +83,7 @@ namespace Leetcode.Exercises
         public void LinkedListCycle2ShouldReturnNode1()
         {
             var loop = ListNodeHelper.CreateListNodeNumber(1, 2);
-            loop.next = loop; // Connect 2 to 1
+            loop.next.next = loop; // Connect 2 to 1
 
             var result = _linkedListCycle2.DetectCycle(loop);
             result.Should().Be(loop);

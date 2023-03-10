@@ -1,3 +1,3 @@
 ﻿using Leetcode.Exercises;
 
-new LinkedListCycle2Tests().LinkedListCycle2ShouldReturnNull();
+new LinkedListCycle2Tests().LinkedListCycle2ShouldReturnNode1();
