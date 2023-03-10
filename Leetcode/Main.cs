@@ -1,3 +1,3 @@
 ﻿using Leetcode.Exercises;
 
-new ReverseIntegerTests().ReverseIntegerTheory(-2147483648, 0);
+new LinkedListCycle2Tests().LinkedListCycle2ShouldReturnNull();

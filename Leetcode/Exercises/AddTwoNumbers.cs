@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Leetcode.HelperClasses;
 
 namespace Leetcode.Exercises
 {
@@ -57,64 +58,23 @@ namespace Leetcode.Exercises
         [Fact]
         public void AddTwoNumbersShouldReturn807()
         {
-            var first = CreateListNodeNumber(2, 4, 3);
-            var second = CreateListNodeNumber(5, 6, 4);
+            var first = ListNodeHelper.CreateListNodeNumber(2, 4, 3);
+            var second = ListNodeHelper.CreateListNodeNumber(5, 6, 4);
 
             var result = _twoSum.AddTwoNumbers(first, second);
 
-            ListNodeShouldBe(result, 7, 0, 8);
+            ListNodeHelper.ListNodeShouldBe(result, 7, 0, 8);
         }
 
         [Fact]
         public void AddTwoNumbersShouldReturn89990001()
         {
-            var first = CreateListNodeNumber(9, 9, 9, 9, 9, 9, 9);
-            var second = CreateListNodeNumber(9, 9, 9, 9);
+            var first = ListNodeHelper.CreateListNodeNumber(9, 9, 9, 9, 9, 9, 9);
+            var second = ListNodeHelper.CreateListNodeNumber(9, 9, 9, 9);
 
             var result = _twoSum.AddTwoNumbers(first, second);
 
-            ListNodeShouldBe(result, 8, 9, 9, 9, 0, 0, 0, 1);
-        }
-
-        private ListNode CreateListNodeNumber(params int[] numbers)
-        {
-            if(numbers.Length == 0)
-                return new ListNode();
-
-            var start = new ListNode(numbers[0]);
-            var current = start;
-
-            for(var i = 1; i < numbers.Length; i++)
-            {
-                current.next = new ListNode(numbers[i]);
-                current = current.next;
-            }
-
-            return start;
-        }
-
-        private void ListNodeShouldBe(ListNode node, params int[] numbers)
-        {
-            var current = node;
-            foreach (var num in numbers)
-            {
-                current.Should().NotBeNull();
-
-                current.val.Should().Be(num);
-
-                current = current.next;
-            }
-        }
-    }
-
-    public class ListNode
-    {
-        public int val;
-        public ListNode next;
-        public ListNode(int val = 0, ListNode next = null)
-        {
-            this.val = val;
-            this.next = next;
+            ListNodeHelper.ListNodeShouldBe(result, 8, 9, 9, 9, 0, 0, 0, 1);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Leetcode.Exercises
                     x /= 10;
                 }
             }
-            catch (OverflowException e)
+            catch
             {
                 return 0;
             }
