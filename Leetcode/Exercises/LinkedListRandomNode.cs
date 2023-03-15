@@ -35,7 +35,9 @@ namespace Leetcode.Exercises
                 node = node?.next;
             }
 
-            return node?.val;
+#pragma warning disable CS8602
+            return node.val;
+#pragma warning restore CS8602
         }
     }
 

@@ -1,3 +1,3 @@
 ﻿using Leetcode.Exercises;
 
-new LinkedListRandomNodeTests().LinkedListRandomNodeTest();
+new SymmetricTreeTests().SymmetricTreeShouldReturnTrue();
