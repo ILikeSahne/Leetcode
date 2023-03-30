@@ -1,3 +1,4 @@
 ﻿using Leetcode.Exercises;
+using Leetcode.Tests.RandomQuestions;
 
-new SymmetricTreeTests().SymmetricTreeShouldReturnTrue();
+new ConnectedCitiesTests().ConnectedCitiesShouldBe1();
